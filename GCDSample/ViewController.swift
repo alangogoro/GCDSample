@@ -40,12 +40,20 @@ class ViewController: UIViewController {
          * 很容易建立出獨一無二的 label，甚至連 Apple 也建議此寫法
          * 儘管如此，它並不是強制性的規則 */
         let queue = DispatchQueue(label: "com.appcoda.myqueue")
-        
+        /* 將在背景運行 */
+        /* 直到佇列任務完成前，它將不會繼續主執行緒的迴圈。
+         * 這是因為我們使用『同步執行』sync */
         queue.sync {
             for i in 0..<10 {
                 print("🔴 " ,i)
             }
         }
+        
+        /* 將在主佇列被執行 */
+        for i in 100..<110 {
+            print("🅼", i)
+        }
+        
     }
     
 }
