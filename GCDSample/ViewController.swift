@@ -43,7 +43,15 @@ class ViewController: UIViewController {
         /* 將在背景運行 */
         /* 直到佇列任務完成前，它將不會繼續主執行緒的迴圈。
          * 這是因為我們使用『同步執行』sync */
-        queue.sync {
+        /* queue.sync {
+            for i in 0..<10 {
+                print("🔴 " ,i)
+            }
+        } */
+        /* 將在背景運行 */
+        /* 佇列任務會和主執行緒的迴圈同時進行。
+         * 因為我們使用了『非同步執行』async */
+        queue.async {
             for i in 0..<10 {
                 print("🔴 " ,i)
             }
@@ -57,4 +65,3 @@ class ViewController: UIViewController {
     }
     
 }
-
