@@ -24,13 +24,9 @@ class ViewController: UIViewController {
         
         //queuesWithQoS()
         
-        concurrentQueues()
-        /* if let queue = inactiveQueue {
-         queue.activate()
-         }
-         */
-        // queueWithDelay()
-        // fetchImage()
+        //concurrentQueues()
+        
+        globalQueue()
         // useWorkItem()
     }
     
@@ -116,5 +112,26 @@ class ViewController: UIViewController {
                 print("⚫️", i)
             }
         }
+    }
+    
+    func globalQueue() {
+        
+        /* 呼叫任意一個佇列 */
+        let globalQueue  = DispatchQueue.global()
+        let globalQueue_ = DispatchQueue.global(qos: .userInitiated)
+        
+        let imageURL: URL = URL(string: "https://logos-world.net/wp-content/uploads/2020/04/TikTok-Logo.png")!
+        
+        (URLSession(configuration: URLSessionConfiguration.default)).dataTask(with: imageURL, completionHandler: { (imageData, response, error) in
+            
+            if let data = imageData {
+                print("成功下載圖片")
+                /* 使用主佇列修改 UI 介面 */
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: data)
+                }
+            }
+        }).resume()
+        
     }
 }
