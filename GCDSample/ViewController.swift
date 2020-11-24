@@ -71,8 +71,8 @@ class ViewController: UIViewController {
          * 共分成 userInteractive, userInitiated, default,
          *       utility, background, unspecified       */
         
-        let queue1 = DispatchQueue(label: "com.appcoda.queue1", qos: DispatchQoS.userInitiated)
-        let queue2 = DispatchQueue(label: "com.appcoda.queue2", qos: DispatchQoS.userInitiated)
+        let queue1 = DispatchQueue(label: "com.appcoda.queue1", qos: DispatchQoS.background)
+        let queue2 = DispatchQueue(label: "com.appcoda.queue2", qos: DispatchQoS.utility)
         
         queue1.async {
             for i in 0..<10 {
