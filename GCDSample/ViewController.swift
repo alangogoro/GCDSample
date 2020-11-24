@@ -21,12 +21,12 @@ class ViewController: UIViewController {
         imageView.image = UIImage(systemName: "applelogo")
         
         //simpleQueues()
-        queuesWithQoS()
         
-        /*
-         concurrentQueues()
-         if let queue = inactiveQueue {
-            queue.activate()
+        //queuesWithQoS()
+        
+        concurrentQueues()
+        /* if let queue = inactiveQueue {
+         queue.activate()
          }
          */
         // queueWithDelay()
@@ -86,6 +86,27 @@ class ViewController: UIViewController {
         }
         for i in 1000..<1010 {
             print("🅜", i)
+        }
+    }
+    
+    func concurrentQueues() {
+        
+        let anotherQueue = DispatchQueue(label: "com.appcda.anotherQueue", qos: .utility)
+        
+        anotherQueue.async {
+            for i in 0..<10 {
+                print("🔴", i)
+            }
+        }
+        anotherQueue.async {
+            for i  in 100..<110 {
+                print("🔵", i)
+            }
+        }
+        anotherQueue.async {
+            for i in 1000..<1010 {
+                print("⚫️", i)
+            }
         }
     }
 }
