@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         
         /* 將在主佇列被執行 */
         for i in 100..<110 {
-            print("🅼", i)
+            print("🅜", i)
         }
         
     }
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
          * 共分成 userInteractive, userInitiated, default,
          *       utility, background, unspecified       */
         
-        let queue1 = DispatchQueue(label: "com.appcoda.queue1", qos: DispatchQoS.background)
+        let queue1 = DispatchQueue(label: "com.appcoda.queue1", qos: DispatchQoS.userInitiated)
         let queue2 = DispatchQueue(label: "com.appcoda.queue2", qos: DispatchQoS.utility)
         
         queue1.async {
@@ -83,6 +83,9 @@ class ViewController: UIViewController {
             for i in 0..<10 {
                 print("🔵", i)
             }
+        }
+        for i in 1000..<1010 {
+            print("🅜", i)
         }
     }
 }
