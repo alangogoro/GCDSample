@@ -21,12 +21,12 @@ class ViewController: UIViewController {
         imageView.image = UIImage(systemName: "applelogo")
         
         //simpleQueues()
-        queuesWithQoS()
         
-        /*
-         concurrentQueues()
-         if let queue = inactiveQueue {
-            queue.activate()
+        //queuesWithQoS()
+        
+        concurrentQueues()
+        /* if let queue = inactiveQueue {
+         queue.activate()
          }
          */
         // queueWithDelay()
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         /* Quality Of Service（QoS）
          * 佇列優先順序，可以使用這個 enum 安排哪個任務應該優先被執行。
          * 共分成 userInteractive, userInitiated, default,
-         *       utility, background, unspecified       */
+         *       utility, background, unspecified           */
         
         let queue1 = DispatchQueue(label: "com.appcoda.queue1", qos: DispatchQoS.userInitiated)
         let queue2 = DispatchQueue(label: "com.appcoda.queue2", qos: DispatchQoS.utility)
@@ -86,6 +86,35 @@ class ViewController: UIViewController {
         }
         for i in 1000..<1010 {
             print("🅜", i)
+        }
+    }
+    
+    func concurrentQueues() {
+        
+//        let anotherQueue =
+//            DispatchQueue(label: "com.appcda.anotherQueue",
+//                          qos: .utility)
+        /* DispatchQueue.Attributes 參數
+         * 帶入『.concurrent - 並發執行』 */
+        let anotherQueue =
+            DispatchQueue(label: "com.appcoda.anotherQueue",
+                          qos: .unspecified,
+                          attributes: .concurrent)
+        
+        anotherQueue.async {
+            for i in 0..<10 {
+                print("🔴", i)
+            }
+        }
+        anotherQueue.async {
+            for i  in 0..<10 {
+                print("🔵", i)
+            }
+        }
+        anotherQueue.async {
+            for i in 100..<110 {
+                print("⚫️", i)
+            }
         }
     }
 }
