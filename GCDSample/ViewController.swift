@@ -12,19 +12,19 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         imageView.image = UIImage(systemName: "applelogo")
         
-        //simpleQueues()
+        simpleQueues()
         
-        //queuesWithQoS()
-        
-        //concurrentQueues()
+        queuesWithQoS()
+
+        concurrentQueues()
         
         globalQueue()
         
@@ -50,13 +50,13 @@ class ViewController: UIViewController {
         /* 佇列任務會和主執行緒的迴圈同時進行。
          * 因為我們使用了『非同步執行』async */
         queue.async {
-            for i in 0..<10 {
+            for i in 0...10 {
                 print("🔴 " ,i)
             }
         }
         
         /* 將在主佇列被執行 */
-        for i in 100..<110 {
+        for i in 100...110 {
             print("🅜", i)
         }
         
@@ -72,16 +72,16 @@ class ViewController: UIViewController {
         let queue2 = DispatchQueue(label: "com.appcoda.queue2", qos: DispatchQoS.utility)
         
         queue1.async {
-            for i in 0..<10 {
+            for i in 0...10 {
                 print("🔴", i)
             }
         }
         queue2.async {
-            for i in 0..<10 {
+            for i in 0...10 {
                 print("🔵", i)
             }
         }
-        for i in 1000..<1010 {
+        for i in 1000...1010 {
             print("🅜", i)
         }
     }
@@ -99,17 +99,17 @@ class ViewController: UIViewController {
                           attributes: .concurrent)
         
         anotherQueue.async {
-            for i in 0..<10 {
+            for i in 0...10 {
                 print("🔴", i)
             }
         }
         anotherQueue.async {
-            for i  in 0..<10 {
+            for i  in 0...10 {
                 print("🔵", i)
             }
         }
         anotherQueue.async {
-            for i in 100..<110 {
+            for i in 100...110 {
                 print("⚫️", i)
             }
         }
@@ -118,8 +118,8 @@ class ViewController: UIViewController {
     func globalQueue() {
         
         /* 呼叫任意一個佇列 */
-        let globalQueue  = DispatchQueue.global()
-        let globalQueue_ = DispatchQueue.global(qos: .userInitiated)
+        let globalQueue1 = DispatchQueue.global()
+        let globalQueue2 = DispatchQueue.global(qos: .userInitiated)
         
         let imageURL: URL = URL(string: "https://logos-world.net/wp-content/uploads/2020/04/TikTok-Logo.png")!
         
@@ -135,4 +135,5 @@ class ViewController: UIViewController {
         }).resume()
         
     }
+    
 }
